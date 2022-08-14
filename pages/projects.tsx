@@ -20,7 +20,6 @@ import {Project} from "../types"
     }
 
 export default function ProjectsPage({projects}: Props) {
-
     return (
         <>
         <Head>
@@ -48,7 +47,7 @@ export default function ProjectsPage({projects}: Props) {
 
 export async function getStaticProps() {
     const projects = await client
-    .fetch(`*[_type == "project"]{
+    .fetch(`*[_type == "project"] | order(dates.startDate desc){
         _id,
         _createdAt,
         _updatedAt,

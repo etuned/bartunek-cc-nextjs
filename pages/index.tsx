@@ -2,6 +2,7 @@ import { client } from "../lib/picosanity";
 import Head from 'next/head'
 import Image from 'next/image';
 import { 
+  createStyles,
   Group,
   Title, 
   Text, 
@@ -21,8 +22,28 @@ interface Props {
   self: Self;
 }
 
+const useStyles = createStyles((theme) => ({
+  projectTitle: {
+    marginTop: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+
+    // Dynamic media queries, define breakpoints in theme, use anywhere
+    [`@media (max-width: ${theme.breakpoints.md}px)`
+    ]: {
+    marginTop: 30,
+    display: 'flex',
+    flexDirection: 'column-reverse',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 20
+    },
+  },
+}));
+
 export default function Home({projects, self}: Props) {
-  
+  const { classes } = useStyles();
   return (
     <>
     <Head>
@@ -49,21 +70,22 @@ export default function Home({projects, self}: Props) {
             />
         </ContentBox>
     </Group>
-    <Container fluid>
-      <Group position="apart">
+   
+    <Container fluid> 
+      <div className={classes.projectTitle}>
         <Avatar
-         size={150}
+        radius={180}
+         size={110}
           sx={(theme)=>({
             backgroundColor: theme.colors.orange
           })}
-          
           src="/character.svg"
           alt="Edwin as a drawing in svg form"
         />
         <Title>
           Here are my current projects in process
         </Title>
-      </Group>
+      </div>
         
         <ProjectsInProgressList projects={projects} />
     </Container>
@@ -77,7 +99,7 @@ export default function Home({projects, self}: Props) {
 export async function getStaticProps() {
   const projects = await client
   .fetch(`
-  *[_type == "project" && dates.isInProgress][0..3]{
+  *[_type == "project" && dates.isInProgress][0..3]| order(dates.startDate asc){
     _id,
     _createdAt,
     _updatedAt,
