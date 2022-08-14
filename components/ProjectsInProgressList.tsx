@@ -81,7 +81,12 @@ export default function ProjectsInProgressList({projects}: Props) {
                         {/* Will add status later */}
                     </Group>
 
-                    <Text size="sm" mb="sm" style={{height: "85px", overflow: "clip", textOverflow: "ellipsis"}}>
+                    <Text 
+                        size="sm" 
+                        mb="sm" 
+                        style={{height: "85px"}}
+                        lineClamp={4}
+                    >
                        {short}
                     </Text>
                     <Grid mb="sm" justify="center" align="center">
