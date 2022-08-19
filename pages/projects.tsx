@@ -1,9 +1,18 @@
 import Head from 'next/head';
 import ContentBox from '../components/ContentBox';
 import { client } from '../lib/picosanity';
-import { Group, Title, Text, Container, Image, Stack } from '@mantine/core';
+import {
+  Group,
+  Title,
+  Text,
+  Container,
+  Image,
+  Stack,
+  Anchor,
+} from '@mantine/core';
 import ProjectsInProgressList from '../components/ProjectsInProgressList';
 import { Project } from '../types';
+import { NextLink } from '@mantine/next';
 
 interface Props {
   projects: [Project];
@@ -13,7 +22,6 @@ export default function ProjectsPage({ projects }: Props) {
   return (
     <>
       <Head>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         <title>Projects - Edwin Bartunek</title>
       </Head>
       <Group style={{ width: '100%' }} position='center'>
