@@ -18,7 +18,7 @@ export default function App(props: AppProps) {
   usePageViews();
   return (
     <>
-      <GoogleAnalytics strategy='lazyOnload' />
+      <GoogleAnalytics />
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
