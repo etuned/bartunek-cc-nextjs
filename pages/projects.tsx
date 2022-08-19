@@ -1,53 +1,48 @@
+import Head from 'next/head';
+import ContentBox from '../components/ContentBox';
+import { client } from '../lib/picosanity';
+import { Group, Title, Text, Container, Image, Stack } from '@mantine/core';
+import ProjectsInProgressList from '../components/ProjectsInProgressList';
+import { Project } from '../types';
 
-import Head from "next/head";
-import ContentBox from "../components/ContentBox";
-import { client } from "../lib/picosanity";
-import { 
-    Group,
-    Title, 
-    Text, 
-    Container,
-    Image,
-    Stack, 
-    } from "@mantine/core";
-import ProjectsInProgressList from "../components/ProjectsInProgressList";
-import {Project} from "../types"
+interface Props {
+  projects: [Project];
+}
 
-
-
-    interface Props {
-        projects: [Project];
-    }
-
-export default function ProjectsPage({projects}: Props) {
-    return (
-        <>
-        <Head>
+export default function ProjectsPage({ projects }: Props) {
+  return (
+    <>
+      <Head>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         <title>Projects - Edwin Bartunek</title>
-        </Head>
-            <Group style={{width: "100%"}} position="center">
-                <Group position="center">
-                    <ContentBox>
-                        <Image src='/character.svg' alt="Edwin as an SVG" width="auto" height={200} />
-                    </ContentBox>
-                <Stack p={30} spacing="lg" sx={{maxWidth: 580}}>
-                    <Title p={30}>Projects are fun and exciting!</Title>
-                    <Text align="center">These are all my projects</Text>
-                </Stack>
-            
-                </Group>
-                <Container fluid>
-                    <ProjectsInProgressList projects={projects}/>
-
-                </Container>
+      </Head>
+      <Group style={{ width: '100%' }} position='center'>
+        <Group position='center'>
+          <ContentBox>
+            <Image
+              src='/character.svg'
+              alt='Edwin as an SVG'
+              width='auto'
+              height={200}
+            />
+          </ContentBox>
+          <Stack p={30} spacing='lg' sx={{ maxWidth: 580 }}>
+            <Title p={30}>Projects are fun and exciting!</Title>
+            <Text align='center'>These are all my projects</Text>
+          </Stack>
         </Group>
+        <Container fluid>
+          <ProjectsInProgressList projects={projects} />
+        </Container>
+      </Group>
     </>
-    )
-};
+  );
+}
 
 export async function getStaticProps() {
-    const projects = await client
-    .fetch(`*[_type == "project"] | order(dates.startDate desc){
+  const projects = await client
+    .fetch(
+      `*[_type == "project"] | order(dates.startDate desc){
         _id,
         _createdAt,
         _updatedAt,
@@ -108,12 +103,13 @@ export async function getStaticProps() {
           }
         }
       }
-      `)
-    .then((projects) => projects)
-  
-    return {
-      props: {
-        projects
-      },
-    }
-  }
+      `
+    )
+    .then((projects) => projects);
+
+  return {
+    props: {
+      projects,
+    },
+  };
+}
