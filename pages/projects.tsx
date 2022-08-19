@@ -23,7 +23,8 @@ export default function ProjectsPage({projects}: Props) {
     return (
         <>
         <Head>
-        <title>Projects - Edwin Bartunek</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <title>Projects - Edwin Bartunek</title>
         </Head>
             <Group style={{width: "100%"}} position="center">
                 <Group position="center">

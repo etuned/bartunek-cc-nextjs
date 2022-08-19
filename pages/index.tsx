@@ -47,6 +47,7 @@ export default function Home({projects, self}: Props) {
   return (
     <>
     <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Edwin Bartunek</title>
     </Head>
     <Group style={{width: "100%"}} position="center">
