@@ -1,10 +1,10 @@
+import Image from 'next/image';
 import {
   Grid,
   Card,
   Badge,
   Group,
   Title,
-  Image,
   Text,
   Avatar,
   Stack,
@@ -35,6 +35,7 @@ export default function ProjectsInProgressList({ projects }: Props) {
           dates,
           employer,
           short,
+          technologies,
           description,
           self,
         }) => (
@@ -48,20 +49,22 @@ export default function ProjectsInProgressList({ projects }: Props) {
             >
               <Card.Section>
                 {mainImage?.src ? (
-                  <Image
-                    width='100%'
-                    height={160}
-                    src={mainImage.src}
-                    alt={mainImage.alt}
-                    placeholder={
-                      <Image
-                        width='auto'
-                        height={160}
-                        src={mainImage.lqip}
-                        alt={mainImage.alt}
-                      />
-                    }
-                  />
+                  <div
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      height: 160,
+                    }}
+                  >
+                    <Image
+                      layout='fill'
+                      objectFit='cover'
+                      src={mainImage.src}
+                      alt={mainImage.alt}
+                      placeholder='blur'
+                      blurDataURL={mainImage.lqip}
+                    />
+                  </div>
                 ) : (
                   <Group
                     position='center'
@@ -74,17 +77,26 @@ export default function ProjectsInProgressList({ projects }: Props) {
                   </Group>
                 )}
               </Card.Section>
-
-              <Group position='apart' mt='md' mb='xs'>
+              <Group position='apart' mt='xs' mb='xs'>
                 <Badge radius='md' size='xl'>
                   {name}
                 </Badge>
                 {/* Will add status later */}
               </Group>
 
-              <Text size='sm' mb='sm' style={{ height: '85px' }} lineClamp={4}>
+              <Group my={10} py={0} spacing={3}>
+                {technologies.map(({ _id, title }, index) => (
+                  <Text size='sm' color='cyan' key={_id}>
+                    {title}
+                    {index < technologies.length - 1 && ' | '}
+                  </Text>
+                ))}
+              </Group>
+
+              <Text size='sm' style={{ height: '49px' }} lineClamp={2}>
                 {short}
               </Text>
+
               <Grid mb='sm' justify='center' align='center'>
                 <Grid.Col span={6}>
                   <Text align='center' size='sm' color='dimmed'>
@@ -119,13 +131,13 @@ export default function ProjectsInProgressList({ projects }: Props) {
                   </Center>
                 </Grid.Col>
               </Grid>
-              <Stack>
+              <Card.Section p='xs' mt='auto'>
                 <Text size='sm' color='dimmed'>
                   Made for:
                 </Text>
 
                 {!employer ? (
-                  <Group position='apart' mt={10} mb={10}>
+                  <Group position='apart'>
                     <Text>{self.name}</Text>
                     <Avatar
                       radius='xl'
@@ -138,7 +150,7 @@ export default function ProjectsInProgressList({ projects }: Props) {
                     />
                   </Group>
                 ) : (
-                  <Group position='apart' mt={10} mb={10}>
+                  <Group position='apart'>
                     <Text>{employer.name}</Text>
                     <Avatar
                       radius='xl'
@@ -151,7 +163,7 @@ export default function ProjectsInProgressList({ projects }: Props) {
                     />
                   </Group>
                 )}
-              </Stack>
+              </Card.Section>
             </Card>
           </Grid.Col>
         )

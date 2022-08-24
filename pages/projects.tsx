@@ -36,7 +36,11 @@ export default function ProjectsPage({ projects }: Props) {
           </ContentBox>
           <Stack p={30} spacing='lg' sx={{ maxWidth: 580 }}>
             <Title p={30}>Projects are fun and exciting!</Title>
-            <Text align='center'>These are all my projects</Text>
+            <Text align='justify'>
+              These are the projects I would like to share to highlight my
+              skills. As I am always adding to this list, please check back
+              often to see additions to my list. Thanks for viewing them!
+            </Text>
           </Stack>
         </Group>
         <Container fluid>
@@ -93,6 +97,9 @@ export async function getStaticProps() {
             background, foreground, title
           }
           },
+        },
+        "technologies": techList[] {
+             _type == 'reference' => @->{_id,title,description},
         },
         short,
         description,

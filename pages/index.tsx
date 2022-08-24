@@ -1,4 +1,5 @@
 import { client } from '../lib/picosanity';
+import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 import {
@@ -9,6 +10,7 @@ import {
   Container,
   Stack,
   Center,
+  Anchor,
   Space,
   Avatar,
 } from '@mantine/core';
@@ -53,11 +55,11 @@ export default function Home({ projects, self }: Props) {
         <Group position='center'>
           <Stack spacing='lg' sx={{ maxWidth: 580 }}>
             <Title>Hello. I am Edwin.</Title>
-            <Text p={30}>
+            <Text style={{ textAlign: 'justify' }} p={30}>
               I am frontend software engineer with a passion for building
               amazing experiences. I enjoy coffee, I love dogs, and I highly
-              enjoy cooking! Learn more about me and my projects {`I've`} done
-              below!
+              enjoy cooking! As I continue to develop this site please feel free
+              to Learn more about me and my projects {`I've`} done below!
             </Text>
           </Stack>
           <ContentBox>
@@ -84,10 +86,27 @@ export default function Home({ projects, self }: Props) {
               src='/character.svg'
               alt='Edwin as a drawing in svg form'
             />
-            <Title>Here are my current projects in process</Title>
+            <Stack>
+              <Title>
+                Here are my current projects in process. <br />
+                Enjoy with your favorite beverage!
+              </Title>
+              <Group position='right'>
+                <Link href='/projects' passHref>
+                  <Anchor>Click here for a full list of my projects</Anchor>
+                </Link>
+              </Group>
+            </Stack>
           </div>
 
           <ProjectsInProgressList projects={projects} />
+          <Group my='lg' position='center'>
+            <Link href='/projects' passHref>
+              <Anchor size='lg'>
+                Go to the full list of my projects {`->`}
+              </Anchor>
+            </Link>
+          </Group>
         </Container>
       </Group>
     </>
@@ -97,86 +116,88 @@ export default function Home({ projects, self }: Props) {
 export async function getStaticProps() {
   const projects = await client
     .fetch(
-      `
-  *[_type == "project" && dates.isInProgress][0..3]| order(dates.startDate asc){
-    _id,
-    _createdAt,
-    _updatedAt,
-    name,
-    mainImage{
-      alt,
-      "src": image.asset->url,
-      "lqip": image.asset->metadata.lqip,
-      "colorDominant": image.asset->metadata.palette.dominant{
-         background, foreground, title
+      `*[_type == "project" && dates.isInProgress][0..3]| order(dates.startDate desc){
+      _id,
+      _createdAt,
+      _updatedAt,
+      name,
+      mainImage{
+        alt,
+        "src": image.asset->url,
+        "lqip": image.asset->metadata.lqip,
+        "colorDominant": image.asset->metadata.palette.dominant{
+          background, foreground, title
+          },
+        "colorVibrant": image.asset->metadata.palette.vibrant{
+            background, foreground, title
+          }
         },
-      "colorVibrant": image.asset->metadata.palette.vibrant{
+      codeUrl{
+        isPrivate,
+        link
+      },
+      liveUrl{
+        isPrivate,
+        link
+      },
+      dates{
+        isInProgress,
+        startDate,
+        endDate,
+      },
+      "employer": employer->{
+        _id,
+        name,
+      image{
+        alt,
+        "src": image.asset->url,
+        "lqip": image.asset->metadata.lqip,
+        "colorDominant": image.asset->metadata.palette.dominant{
+          background, foreground, title
+        },
+        "colorVibrant": image.asset->metadata.palette.vibrant{
           background, foreground, title
         }
+        },
       },
-    codeUrl{
-      isPrivate,
-      link
-    },
-    liveUrl{
-      isPrivate,
-      link
-    },
-    dates{
-      isInProgress,
-      startDate,
-      endDate,
-    },
-    "employer": employer->{
-      _id,
-      name,
-     image{
-      alt,
-      "src": image.asset->url,
-      "lqip": image.asset->metadata.lqip,
-      "colorDominant": image.asset->metadata.palette.dominant{
-        background, foreground, title
+      "technologies": techList[] {
+        _type == 'reference' => @->{_id,title,description},
       },
-      "colorVibrant": image.asset->metadata.palette.vibrant{
-        background, foreground, title
+      short,
+      description,
+      "self": *[_type == "author" && name == "Edwin Bartunek"][0]{
+        name,
+        image{
+        alt,
+        "src": image.asset->url,
+        "lqip": image.asset->metadata.lqip,
+        "colorDominant": image.asset->metadata.palette.dominant{
+          background, foreground, title
+        },
+        "colorVibrant": image.asset->metadata.palette.vibrant{
+          background, foreground, title
+        }
+        },
       }
-      },
-    },
-    short,
-    description,
-    "self": *[_type == "author" && name == "Edwin Bartunek"][0]{
-      name,
-      image{
-      alt,
-      "src": image.asset->url,
-      "lqip": image.asset->metadata.lqip,
-      "colorDominant": image.asset->metadata.palette.dominant{
-        background, foreground, title
-      },
-      "colorVibrant": image.asset->metadata.palette.vibrant{
-        background, foreground, title
-      }
-      },
     }
-  }
-  `
+    `
     )
     .then((projects) => projects);
 
   const self = await client
     .fetch(
       `*[_type == "author" && name == "Edwin Bartunek"][0]{
-      name,
-      image{
-      alt,
-      "src": image.asset->url,
-      "lqip": image.asset->metadata.lqip,
-      "colorDominant": image.asset->metadata.palette.dominant{
-        background, foreground, title
+        name,
+        image{
+        alt,
+        "src": image.asset->url,
+        "lqip": image.asset->metadata.lqip,
+        "colorDominant": image.asset->metadata.palette.dominant{
+          background, foreground, title
+        }
       }
     }
-  }
-  `
+    `
     )
     .then((self) => self);
 

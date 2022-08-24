@@ -50,6 +50,13 @@ export interface Project {
       };
     };
   };
+  technologies: [
+    {
+      _id: string;
+      title: string;
+      description: string;
+    }
+  ];
   short: string;
   description: [object];
   self: {
