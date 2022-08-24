@@ -66,7 +66,14 @@ export default function App(props: AppProps) {
       >
         <AppShell
           header={
-            <Header style={{ border: 'none' }} py={20} height={65}>
+            <Header
+              sx={{
+                border: 'none',
+                backgroundColor: 'rgba(39, 35, 67, 0.94)',
+              }}
+              py={20}
+              height={65}
+            >
               <Container size={920}>
                 <Group position='left'>
                   <Link href='/' passHref>
