@@ -39,7 +39,7 @@ export default function ProjectsInProgressList({ projects }: Props) {
           description,
           self,
         }) => (
-          <Grid.Col xs={12} sm={6} md={6} lg={4} key={_id}>
+          <Grid.Col xs={12} sm={6} md={6} lg={6} key={_id}>
             <Card
               sx={{ maxWidth: '100%', height: '100%' }}
               shadow='sm'
