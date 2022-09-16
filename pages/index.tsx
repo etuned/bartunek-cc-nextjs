@@ -56,10 +56,11 @@ export default function Home({ projects, self }: Props) {
           <Stack spacing='lg' sx={{ maxWidth: 580 }}>
             <Title>Hello. I am Edwin.</Title>
             <Text style={{ textAlign: 'justify' }} p={30}>
-              I am frontend software engineer with a passion for building
-              amazing experiences. I enjoy coffee, I love dogs, and I highly
-              enjoy cooking! As I continue to develop this site please feel free
-              to Learn more about me and my projects {`I've`} done below!
+              Hello! I am a frontend software engineer with a passion for
+              building amazing experiences. I enjoy coffee, I love dogs, and I
+              highly enjoy cooking! As I continue to develop this site please
+              feel free to learn more about me and my projects {`I've`} done
+              below!
             </Text>
           </Stack>
           <ContentBox>
