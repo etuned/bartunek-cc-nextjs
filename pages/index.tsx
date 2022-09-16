@@ -54,13 +54,12 @@ export default function Home({ projects, self }: Props) {
       <Group style={{ width: '100%' }} position='center'>
         <Group position='center'>
           <Stack spacing='lg' sx={{ maxWidth: 580 }}>
-            <Title>Hello. I am Edwin.</Title>
+            <Title>Hello! I am Edwin!</Title>
             <Text style={{ textAlign: 'justify' }} p={30}>
-              Hello! I am a frontend software engineer with a passion for
-              building amazing experiences. I enjoy coffee, I love dogs, and I
-              highly enjoy cooking! As I continue to develop this site please
-              feel free to learn more about me and my projects {`I've`} done
-              below!
+              I am a frontend software engineer with a passion for building
+              amazing experiences. I enjoy coffee, I love dogs, and I highly
+              enjoy cooking! As I continue to develop this site please feel free
+              to learn more about me and my projects {`I've`} done below!
             </Text>
           </Stack>
           <ContentBox>
