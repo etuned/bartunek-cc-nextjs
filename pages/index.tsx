@@ -58,8 +58,8 @@ export default function Home({ projects, self }: Props) {
             <Text style={{ textAlign: 'justify' }} p={30}>
               I am a frontend software engineer with a passion for building
               amazing experiences. I enjoy coffee, I love dogs, and I highly
-              enjoy cooking! As I continue to develop this site please feel free
-              to learn more about me and my projects {`I've`} done below!
+              enjoy cooking! As I continue to develop this site, please feel
+              free to learn more about me and my projects {`I've`} done below!
             </Text>
           </Stack>
           <ContentBox>
